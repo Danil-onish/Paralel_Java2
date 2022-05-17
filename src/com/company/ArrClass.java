@@ -58,13 +58,16 @@ public class ArrClass {
         partsArr = new int[threadNum];
         int portion = arr.length / threadNum;
         int ostacha = arr.length % threadNum;
+        System.out.println("\nPortion: "+portion+"\nOstacha: "+ostacha);
         for (int i = 0; i < threadNum - 1; i++) {
             threadSums[i] = new ThreadSum(i * portion, (i + 1) * portion - 1, this, i);
             threadSums[i].start();
+            System.out.println("thread["+(i)+"] = new Bound("+(i * portion)+", "+((i + 1) * portion - 1)+")");
         }
         int j = threadSums.length - 1;
         threadSums[j] = new ThreadSum(j * portion, (j + 1) * portion - 1 + ostacha, this, j);
         threadSums[j].start();
+        System.out.println("thread["+(j)+"] = new Bound("+(j * portion)+", "+((j + 1) * portion - 1 + ostacha)+")");
 
         int[] res = getMins();
 
